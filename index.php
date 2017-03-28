@@ -6,5 +6,7 @@
 </head>
 <body>
     <h2>User Authentication System</h2><hr>
+
+    <?php include_once('resource/database.php'); ?>
 </body>
 </html>
