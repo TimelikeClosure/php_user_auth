@@ -1,16 +1,17 @@
 
 <?php
-    include_once('resource/database.php');
+    require_once('resource/utilities.php');
 
     if (isset($_POST['signup'])){
         $formErrors = [];
 
         $requiredFields = ['email', 'username', 'password'];
-        foreach($requiredFields as $requiredField){
-            if (empty($_POST[$requiredField])){
-                $formErrors[] = "$requiredField is a required field";
-            }
-        }
+        $formErrors = emptyFieldErrors($formErrors, $requiredFields);
+
+        $minFieldLengths = ['email' => 6, 'username' => 4, 'password' => 8];
+        $formErrors = shortFieldErrors($formErrors, $minFieldLengths);
+
+        $formErrors = validFieldErrors($formErrors);
 
         if (empty($formErrors)){
             $email = $_POST['email'];
@@ -20,6 +21,8 @@
             $password = passwordEncrypt($password);
 
             try {
+
+                include_once('resource/database.php');
 
                 $sqlInsert = "INSERT INTO `users` (`username`, `email`, `password`, `join_date`) VALUES (:username, :email, :password, now())";
 
@@ -31,23 +34,14 @@
                 ]);
 
                 if ($statement->rowCount() > 0){
-                    $result = '<p style="padding: 20px; color: green;">Registration Successful</p>';
+                    $result = '<ul style="padding: 20px; border: 1px solid gray; color: green;">Registration Successful</ul>';
                 }
 
             } catch (PDOException $exception) {
-                $result = '<p style="padding: 20px; color: red;">An error occurred: <ul style="color: red;"><li>'.$exception->getMessage().'</li></ul></p>';
+                $result = '<ul style="padding: 20px; border: 1px solid gray; color: red;"><li>'.$exception->getMessage().'</li></ul>';
             }
         } else {
-            if (count($formErrors) === 1){
-                $result = '<p style="color: red;">An error occurred: ';
-            } else {
-                $result = '<p style="color: red;">Some errors occurred: ';
-            }
-            $result .= '<ul style="color: red;">';
-            foreach ($formErrors as $formError) {
-                $result .= "<li>$formError</li>";
-            }
-            $result .= '</ul></p>';
+            $result = displayErrors($formErrors);
         }
     }
 ?>
