@@ -1,3 +1,14 @@
+<?php
+
+require_once('resource/utilities.php');
+include_once('resource/session.php');
+include_once('resource/database.php');
+
+if (!empty($_POST['login'])){
+
+}
+
+?>
 <!DOCTYPE html>
 <html>
 <head lang="en">
@@ -10,9 +21,17 @@
     <h3>Login Form</h3>
     <form method="post" action="">
         <table>
-            <tr><td>Username:</td> <td><input type="text" value=""></td></tr>
-            <tr><td>Password:</td> <td><input type="password" value=""></td></tr>
-            <tr><td></td><td><input style="float: right;" type="submit" value="signin"</td></tr>
+            <tr>
+                <td><label for="email">Username:</label></td>
+                <td><input type="text" value="" id="username" name="username"></td>
+            </tr>
+            <tr>
+                <td><label for="password">Password:</label></td>
+                <td><input type="password" value="" id="password" name="password"></td>
+            </tr>
+            <tr>
+                <td colspan="2"><input style="float: right;" type="submit" value="signin" name="login"></td>
+            </tr>
         </table>
     </form>
 

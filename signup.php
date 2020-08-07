@@ -59,10 +59,21 @@
     <?php if(isset($result)){echo $result;}?>
     <form method="post" action="">
         <table>
-            <tr><td>Email:</td> <td><input type="email" value="" name="email"></td></tr>
-            <tr><td>Username:</td> <td><input type="text" value="" name="username"></td></tr>
-            <tr><td>Password:</td> <td><input type="password" value="" name="password"></td></tr>
-            <tr><td></td><td><input style="float: right;" type="submit" name="signup"</td></tr>
+            <tr>
+                <td><label for="email">Email:</label></td>
+                <td><input type="email" value="" id="email" name="email"></td>
+            </tr>
+            <tr>
+                <td><label for="username">Username:</label></td>
+                <td><input type="text" value="" id="username" name="username"></td>
+            </tr>
+            <tr>
+                <td><label for="email">Password:</label></td>
+                <td><input type="password" id="password" value="" name="password"></td>
+            </tr>
+            <tr>
+                <td colspan="2"><input style="float: right;" type="submit" name="signup"</td>
+            </tr>
         </table>
     </form>
 
